@@ -1,0 +1,18 @@
+{
+  "name": "img-lightbox",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Just another simple image lightbox.",
+  "license": "MIT",
+  "author": "Miyako Jones",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/miyakoj/imgLightbox"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-terser": "^1.4.1"
+  }
+}

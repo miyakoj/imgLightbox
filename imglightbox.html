@@ -2,17 +2,16 @@
 <!-- version 1.0.4 -->
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="Author" content="Czigler Ferenc, Miyako Jones" />
 <title>imgLightbox</title>
-<meta name="Author" content="Czigler Ferenc">
 
-<link href="imglightbox.css" rel="stylesheet" type="text/css">
-<script src="imglightbox.js"></script>
+<link href="imglightbox.css" rel="stylesheet" type="text/css" />
+<link href="fontawesome/fontawesome.min.css" rel="stylesheet" type="text/css" />
+<link href="fontawesome/solid.min.css" rel="stylesheet" type="text/css" />
 
 <style>
-
 *,:before,:after { box-sizing: border-box; word-break: break-all; word-wrap: break-word;}
 
 body {
@@ -46,7 +45,7 @@ code, button { display: inline-block; margin: 2px; }
 
 <header>
   <h1>imgLightbox</h1>
-  <p>Just another simple image lightbox without dependecies.</p>
+  <p>Just another simple image lightbox.</p>
   <p>IE11, mobile browser and ES5 compatible.</p>
 </header>
 
@@ -57,17 +56,41 @@ code, button { display: inline-block; margin: 2px; }
 <h3>Include</h3>
 
 <p>Insert the .js and .css file in the page header:</p>
-<pre>&#60;link href="imglightbox.min.css" rel="stylesheet" type="text/css"&#62;
+<pre>&#60;link href="imglightbox.min.css" rel="stylesheet" type="text/css" /&#62;
 &#60;script src="imglightbox.min.js"&#62;&#60;/script&#62;</pre>
 
 <p>Insert this code in your html page:</p>
 <pre>&#60;div id="imgLightbox" onclick="imgLightbox.close();"&#62;
   &#60;div id="imgLightbox-button-area"&#62;
-    &#60;a title="download and close" id="imgLightbox-button-download"&#62;
-      &#60;span class="imgLightbox-button"&#62;&amp;DownArrowBar;&#60;/span&#62;
+    &#60;a title="open externally and close" id="imgLightbox-button-external"&#62;
+      &#60;span class="imgLightbox-button"&#62;&#60;i class="fas fa-expand-alt"&#62;&#60;/i&#62;&#60;/span&#62;
     &#60;/a&#62;
-    &#60;span title="close" class="imgLightbox-button" onclick="imgLightbox.close();"&#62;&amp;Cross;&#60;/span&#62;
+    &#60;a title="download and close" id="imgLightbox-button-download"&#62;
+      &#60;span class="imgLightbox-button"&#62;&#60;i class="fas fa-arrow-alt-circle-down"&#62;&#60;/i&#62;&#60;/span&#62;
+    &#60;/a&#62;
+    &#60;span title="close" class="imgLightbox-button" onclick="imgLightbox.close();"&#62;&#60;i class="fas fa-times-circle"&#62;&#60;/i&#62;&#60;/span&#62;
   &#60;/div&#62;
+
+  &#60;div id="imgLightbox-image-area"&#62;&#60;/div&#62;
+&#60;/div&#62;</pre>
+
+<p>Insert the references to FontAwesome for the lightbox icons:</p>
+<pre>&#60;link href="fontawesome/fontawesome.min.css" rel="stylesheet" type="text/css" /&#62;
+&#60;link href="fontawesome/solid.min.css" rel="stylesheet" type="text/css" /&#62;</pre>
+
+<p>If you don't want to use FontAwesome, use this HTML instead and don't insert the references to FontAwesome:</p>
+<pre>&#60;div id="imgLightbox" onclick="imgLightbox.close();"&#62;
+  &#60;div id="imgLightbox-button-area"&#62;
+    &#60;a title="open externally and close" id="imgLightbox-button-external"&#62;
+      &#60;span class="imgLightbox-button"&#62;&amp;nearr;&#60;/i&#62;&#60;/span&#62;
+    &#60;/a&#62;
+    &#60;a title="download and close" id="imgLightbox-button-download"&#62;
+      &#60;span class="imgLightbox-button"&#62;&amp;DownArrowBar;&#60;/i&#62;&#60;/span&#62;
+    &#60;/a&#62;
+    &#60;span title="close" class="imgLightbox-button" onclick="imgLightbox.close();"&#62;&amp;Cross;&#60;/i&#62;&#60;/span&#62;
+  &#60;/div&#62;
+
+  &#60;div id="imgLightbox-image-area"&#62;&#60;/div&#62;
 &#60;/div&#62;</pre>
 
 <h3>Get the library version:</h3>
@@ -85,37 +108,54 @@ code, button { display: inline-block; margin: 2px; }
   <code>imgLightbox.config.download = false;</code>
 </p>
 
-<h3>imgLightbox.open() method parameters:</h3>
-<p><code>imgLightbox.open(&#60;filename: string&#62;[,download: boolean]);</code></p>
+<h3>Set config.externalOpen (default is false):</h3>
+<p>
+  <button onclick="imgLightbox.config.externalOpen=true;">set true</button>
+  <code>imgLightbox.config.externalOpen = true;</code>
+  <br/>
+  <button onclick="imgLightbox.config.externalOpen=false;">set false</button>
+  <code>imgLightbox.config.externalOpen = false;</code>
+</p>
 
+<h3>imgLightbox.open() method parameters:</h3>
+<p><code>imgLightbox.open(&#60;filename: string&#62;, &#60;config: object&#62;);</code></p>
 <hr/>
 
 <h2>Samples</h2>
 
 <h3>Open with the download button</h3>
-<p><code>imgLightbox.open('test1.jpg',true);</code></p>
-<p class="center"><img src="test1-400.jpg" class="thumbnail" onclick="imgLightbox.open('test1.jpg',true);"></p>
+<p><code>imgLightbox.open('test1.jpg', {download: true});</code></p>
+<p class="center"><img id="test1-400" src="test1-400.jpg" class="thumbnail" onclick="imgLightbox.open('test1.jpg', {download: true});"></p>
+
+<h3>Open with the download button and the external open button</h3>
+<p><code>imgLightbox.open('test1.jpg', {download: true, externalOpen: true});</code></p>
+<p class="center"><img id="test1-400" src="test1-400.jpg" class="thumbnail" onclick="imgLightbox.open('test1.jpg', {download: true, externalOpen: true});"></p>
+
 <h3>Open with the config.download setting:</h3>
 <p><code>imgLightbox.open('test1.jpg');</code></p>
 <p class="center"><img src="test1-400.jpg" class="thumbnail" onclick="imgLightbox.open('test1.jpg');"></p>
-<h3>Open without the download button:</h3>
-<p><code>imgLightbox.open('test1.jpg',false);</code></p>
-<p class="center"><img src="test1-400.jpg" class="thumbnail" onclick="imgLightbox.open('test1.jpg',false);"></p>
+
+<h3>Open with the external open button but no download button:</h3>
+<p><code>imgLightbox.open('test1.jpg', {externalOpen: true});</code></p>
+<p class="center"><img src="test1-400.jpg" class="thumbnail" onclick="imgLightbox.open('test1.jpg', {externalOpen: true});"></p>
 
 <hr/>
 
 <h3>Small size image with the download button:</h3>
-<p><code>imgLightbox.open('test2.jpg',true);</code></p>
-<p class="center"><img src="test2.jpg" onclick="imgLightbox.open('test2.jpg',true);"></p>
-<p><code>imgLightbox.open('test2.jpg');</code></p>
+<p><code>imgLightbox.open('test2.jpg', {download: true});</code></p>
+<p class="center"><img src="test2.jpg" onclick="imgLightbox.open('test2.jpg', {download: true});"></p>
+
+<h3>Small size image with the external open button:</h3>
+<p><code>imgLightbox.open('test2.jpg', {externalOpen: true});</code></p>
+<p class="center"><img src="test2.jpg" onclick="imgLightbox.open('test2.jpg', {externalOpen: true});"></p>
 
 <h3>Small size image with the config.download setting:</h3>
 <p><code>imgLightbox.open('test2.jpg');</code></p>
 <p class="center"><img src="test2.jpg" onclick="imgLightbox.open('test2.jpg');"></p>
 
 <h3>Small size image without the download button:</h3>
-<p><code>imgLightbox.open('test2.jpg',false);</code></p>
-<p class="center"><img src="test2.jpg" onclick="imgLightbox.open('test2.jpg',false);"></p>
+<p><code>imgLightbox.open('test2.jpg', {download: false});</code></p>
+<p class="center"><img src="test2.jpg" onclick="imgLightbox.open('test2.jpg', {download: false});"></p>
 
 <hr/>
 
@@ -146,20 +186,26 @@ code, button { display: inline-block; margin: 2px; }
 <footer>
   <small>
     <p>Free photos from <a href="https://unsplash.com/" target="_blank">https://unsplash.com/</a></p>
-    <p><a href="https://github.com/Serrin/" target="_blank">Github</a></p>
-    <p>&copy; Ferenc Czigler 2017</p>
+    <p><a href="https://github.com/miyakoj" target="_blank">Github</a></p>
+    <p>&copy; Ferenc Czigler 2017; Miyako Jones 2020</p>
   </small>
 </footer>
 
-<!-- Insert these code into the page: -->
+<!-- Insert this code into the page: -->
 <div id="imgLightbox" onclick="imgLightbox.close();">
   <div id="imgLightbox-button-area">
-    <a title="download and close" id="imgLightbox-button-download">
-      <span class="imgLightbox-button">&DownArrowBar;</span>
+    <a title="open externally and close" id="imgLightbox-button-external">
+      <span class="imgLightbox-button"><i class="fas fa-expand-alt"></i></span>
     </a>
-    <span title="close" class="imgLightbox-button" onclick="imgLightbox.close();">&Cross;</span>
+    <a title="download and close" id="imgLightbox-button-download">
+      <span class="imgLightbox-button"><i class="fas fa-arrow-alt-circle-down"></i></span>
+    </a>
+    <span title="close" class="imgLightbox-button" onclick="imgLightbox.close();"><i class="fas fa-times-circle"></i></span>
   </div>
+
+  <div id="imgLightbox-image-area"></div>
 </div>
 
+<script src="imglightbox.js"></script>
 </body>
 </html>
